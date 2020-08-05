@@ -1,25 +1,29 @@
-const HDWalletProvider = require('truffle-hdwallet-provider')
+const fs = require('fs');
 const web3 = require('web3')
-const MNEMONIC = process.env.MNEMONIC
-const INFURA_KEY = process.env.INFURA_KEY
-const ACCOUNT_1 = process.env.METAMASK_PRIVATE_KEY_1
-const ACCOUNT_2 = process.env.METAMASK_PRIVATE_KEY_2
-const FACTORY_CONTRACT_ADDRESS = process.env.FACTORY_CONTRACT_ADDRESS
-const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS
-const OWNER_ADDRESS = process.env.OWNER_ADDRESS
-const NETWORK = process.env.NETWORK
+const HDWalletProvider = require("@truffle/hdwallet-provider")
+
 const NUM_CREATURES = 2
 const NUM_LOOTBOXES = 4
 const DEFAULT_OPTION_ID = 0
 const LOOTBOX_OPTION_ID = 2
+const NETWORK = process.env.NETWORK
+const MNEMONIC = process.env.MNEMONIC
+const INFURA_KEY = process.env.INFURA_KEY
+const ACCOUNT_1 = process.env.METAMASK_PRIVATE_KEY_1
+const ACCOUNT_2 = process.env.METAMASK_PRIVATE_KEY_2
+const OWNER_ADDRESS = process.env.OWNER_ADDRESS
+const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS
+const FACTORY_CONTRACT_ADDRESS = process.env.FACTORY_CONTRACT_ADDRESS
 
 if (!MNEMONIC || !INFURA_KEY || !OWNER_ADDRESS || !NETWORK) {
   console.error(
     'Please set a mnemonic, infura key, owner, network, and contract address.'
-  )
-  return
-}
-
+    )
+    return
+  }
+  
+  const fd = fs.readFileSync('./build/contracts/DerWanderer.json');
+  const ABI = JSON.parse(fd.toString()).abi
 const NFT_ABI = [
   {
     constant: false,
@@ -71,7 +75,7 @@ async function main() {
 
   if (NFT_CONTRACT_ADDRESS) {
     const nftContract = new web3Instance.eth.Contract(
-      NFT_ABI,
+      ABI,
       NFT_CONTRACT_ADDRESS,
       { gasLimit: '1000000' }
     )
