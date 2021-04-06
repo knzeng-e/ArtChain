@@ -56,3 +56,6 @@ créer un fichier nommé ".env" et y fournir les informations suivantes:
 - Ouvrir le fichier _mint.js_ présent dans le dossier _scripts_ et régler les valeurs des champs selon le paramétrage désiré:
   - const NUM_CREATURES: nombre de tokens à minter
   - const NUM_LOOTBOXES: nombre de tokens par lootbox 
+
+### client 
+![alt text](https://github.com/knzeng-e/ArtChain/blob/main/artChain.png)
