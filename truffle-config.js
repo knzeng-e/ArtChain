@@ -1,14 +1,17 @@
-// const HDWalletProvider = require("truffle-hdwallet-provider")
+require('dotenv').config();
+
 const HDWalletProvider = require("@truffle/hdwallet-provider")
 
 const MNEMONIC = process.env.MNEMONIC
 const INFURA_KEY = process.env.INFURA_KEY
-const ACCOUNT_1 = process.env.METAMASK_PRIVATE_KEY_1
-const ACCOUNT_2 = process.env.METAMASK_PRIVATE_KEY_2
+// const ACCOUNT_1 = process.env.METAMASK_PRIVATE_KEY_1
+
 
 const needsInfura = process.env.npm_config_argv &&
       (process.env.npm_config_argv.includes('rinkeby') ||
        process.env.npm_config_argv.includes('live'))
+
+console.log("MNEMONIC ==> ", MNEMONIC)
 
 if ((!MNEMONIC || !INFURA_KEY) && needsInfura) {
   console.error('Please set a mnemonic and infura key.')
@@ -26,14 +29,16 @@ module.exports = {
     rinkeby: {
       provider: function() {
         return new HDWalletProvider(
-          [ACCOUNT_1, ACCOUNT_2],
+          // [ACCOUNT_1],
+          MNEMONIC,
           "https://rinkeby.infura.io/v3/" + INFURA_KEY,
-          1,
-          1
+          // 1,
+          // 0
         )
       },
       network_id: "*",
-      networkCheckTimeout: 10000000
+      networkCheckTimeout: 10000000,
+      skipDryRun: true
     },
     live: {
       network_id: 1,

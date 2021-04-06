@@ -5,11 +5,11 @@ pragma solidity >=0.4.21 <0.7.0;
 import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 
-contract DerWanderer is ERC721 {
+contract ArtChain is ERC721 {
 
   uint256 private _currentTokenId = 0;
 
-    constructor() ERC721("DerWanderer", "ETH") public {
+    constructor() ERC721("ArtChain", "ATC") public {
         _setBaseURI("https://powerful-oasis-48134.herokuapp.com/DerWanderer/api/asset/");
 
     }
